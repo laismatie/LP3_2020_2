@@ -22,4 +22,29 @@ export class UsuarioController {
         });
         return usuario.lancamentos;
      }
+
+     async recuperarLancamentosEntradasPositivas(id: number) {
+        let lancamentosPositivos<Number> = [];
+        const usuario = await getManager().findOne(Usuario, id, {
+            relations: ['lancamentos']
+        });
+        usuario.lancamentos.forEach(lancamento => {
+            if(lancamento.valor > 0){
+                lancamentosPositivos = lancamento;
+            }
+        });
+        return lancamentosPositivos;
+     }
+     async recuperarLancamentosEntradasNegativas(id: number) {
+        let lancamentosPositivos<Number> = [];
+        const usuario = await getManager().findOne(Usuario, id, {
+            relations: ['lancamentos']
+        });
+        usuario.lancamentos.forEach(lancamento => {
+            if(lancamento.valor > 0){
+                lancamentosPositivos = lancamento;
+            }
+        });
+        return lancamentosPositivos;
+     }
 }

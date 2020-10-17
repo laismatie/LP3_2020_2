@@ -1,7 +1,6 @@
 import { Usuario } from './../entity/Usuario';
 import { UsuarioController } from './../controller/UsuarioController';
 import { Router } from 'express';
-import { routerLancamento } from './lancamento';
 
 export const routerUsuario = Router();
 const usuarioCtrl = new UsuarioController();
@@ -32,3 +31,23 @@ routerUsuario.get('/lancamentos/:idUsuario', async(req, res) => {
     const lancamentos = await usuarioCtrl.recuperarLancamentosDoUsuario(idUsuario);
     res.json(lancamentos);
 });
+
+/**
+ * Serviço para retornar valores positivos
+ */
+routerUsuario.get('/lancamentos/entradas/:id', async(req, res) => {
+    const idUsuario = parseInt(req.params.id);
+    const lancamentos = await usuarioCtrl.recuperarLancamentosEntradasPositivas(idUsuario);
+    res.json(lancamentos);
+});
+
+/**
+ * Serviço para retornar valores negativos
+ */
+routerUsuario.get('/lancamentos/gastos/:id', async(req, res) => {
+    const idUsuario = parseInt(req.params.id);
+    const lancamentos = await usuarioCtrl.recuperarLancamentosEntradasNegativas(idUsuario);
+    res.json(lancamentos);
+});
+
+
