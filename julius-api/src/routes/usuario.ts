@@ -33,19 +33,19 @@ routerUsuario.get('/lancamentos/:idUsuario', async(req, res) => {
 });
 
 /**
- * Serviço para retornar valores positivos
+ * Serviço para retornar os ganhos
  */
-routerUsuario.get('/lancamentos/entradas/:id', async(req, res) => {
-    const idUsuario = parseInt(req.params.id);
+routerUsuario.get('/lancamentos/entradas/:idUsuario', async(req, res) => {
+    const idUsuario = parseInt(req.params.idUsuario);
     const lancamentos = await usuarioCtrl.recuperarLancamentosEntradasPositivas(idUsuario);
     res.json(lancamentos);
 });
 
 /**
- * Serviço para retornar valores negativos
+ * Serviço para retornar os gastos
  */
-routerUsuario.get('/lancamentos/gastos/:id', async(req, res) => {
-    const idUsuario = parseInt(req.params.id);
+routerUsuario.get('/lancamentos/gastos/:idUsuario', async(req, res) => {
+    const idUsuario = parseInt(req.params.idUsuario);
     const lancamentos = await usuarioCtrl.recuperarLancamentosEntradasNegativas(idUsuario);
     res.json(lancamentos);
 });

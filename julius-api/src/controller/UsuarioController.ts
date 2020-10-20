@@ -1,5 +1,7 @@
-import { getManager } from 'typeorm';
+import { Lancamento } from './../entity/Lancamento';
+import { getManager, MoreThanOrEqual, LessThan } from 'typeorm';
 import { Usuario } from './../entity/Usuario';
+
 export class UsuarioController {
      async salvar(usuario: Usuario) {
         const usuarioSalvo = await getManager().save(usuario);
@@ -11,40 +13,36 @@ export class UsuarioController {
          return usuarios;
      }
 
-     async recuperarPorId(id: number) {
-         const usuario= await getManager().findOne(Usuario, id);
+     async recuperarPorId(idUsuario: number) {
+         const usuario= await getManager().findOne(Usuario, idUsuario);
          return usuario;
      }
 
-     async recuperarLancamentosDoUsuario(id: number) {
-        const usuario = await getManager().findOne(Usuario, id, {
+     async recuperarLancamentosDoUsuario(idUsuario: number) {
+        const usuario = await getManager().findOne(Usuario, idUsuario, {
             relations: ['lancamentos']
         });
         return usuario.lancamentos;
      }
 
-     async recuperarLancamentosEntradasPositivas(id: number) {
-        let lancamentosPositivos<Number> = [];
-        const usuario = await getManager().findOne(Usuario, id, {
-            relations: ['lancamentos']
+     async recuperarLancamentosEntradasPositivas(idUsuario: number) {
+        const lancamentos = await getManager().find(Lancamento, {
+            where: {
+                usuario: idUsuario,
+                valor: MoreThanOrEqual(0)
+            },
         });
-        usuario.lancamentos.forEach(lancamento => {
-            if(lancamento.valor > 0){
-                lancamentosPositivos = lancamento;
-            }
-        });
-        return lancamentosPositivos;
+        return lancamentos;
      }
-     async recuperarLancamentosEntradasNegativas(id: number) {
-        let lancamentosPositivos<Number> = [];
-        const usuario = await getManager().findOne(Usuario, id, {
-            relations: ['lancamentos']
+     async recuperarLancamentosEntradasNegativas(idUsuario: number) {
+        const lancamentos = await getManager().find(Lancamento, {
+            where: {
+                usuario: idUsuario,
+                valor: LessThan(0)
+            },
         });
-        usuario.lancamentos.forEach(lancamento => {
-            if(lancamento.valor > 0){
-                lancamentosPositivos = lancamento;
-            }
-        });
-        return lancamentosPositivos;
+        return lancamentos;
      }
+
+
 }
