@@ -25,7 +25,7 @@ export class UsuarioController {
         return usuario.lancamentos;
      }
 
-     async recuperarLancamentosEntradasPositivas(idUsuario: number) {
+     async recuperarLancamentosEntradas(idUsuario: number) {
         const lancamentos = await getManager().find(Lancamento, {
             where: {
                 usuario: idUsuario,
@@ -34,7 +34,7 @@ export class UsuarioController {
         });
         return lancamentos;
      }
-     async recuperarLancamentosEntradasNegativas(idUsuario: number) {
+     async recuperarLancamentosGastos(idUsuario: number) {
         const lancamentos = await getManager().find(Lancamento, {
             where: {
                 usuario: idUsuario,
@@ -43,6 +43,4 @@ export class UsuarioController {
         });
         return lancamentos;
      }
-
-
 }

@@ -37,8 +37,12 @@ routerUsuario.get('/lancamentos/:idUsuario', async(req, res) => {
  */
 routerUsuario.get('/lancamentos/entradas/:idUsuario', async(req, res) => {
     const idUsuario = parseInt(req.params.idUsuario);
-    const lancamentos = await usuarioCtrl.recuperarLancamentosEntradasPositivas(idUsuario);
-    res.json(lancamentos);
+    const lancamentos = await usuarioCtrl.recuperarLancamentosEntradas(idUsuario);
+    if(!lancamentos.length){
+        res.status(204).json({ mensagem: 'Nenhum lançamento encontrado' });
+    }else{
+        res.json(lancamentos);
+    }
 });
 
 /**
@@ -46,8 +50,12 @@ routerUsuario.get('/lancamentos/entradas/:idUsuario', async(req, res) => {
  */
 routerUsuario.get('/lancamentos/gastos/:idUsuario', async(req, res) => {
     const idUsuario = parseInt(req.params.idUsuario);
-    const lancamentos = await usuarioCtrl.recuperarLancamentosEntradasNegativas(idUsuario);
-    res.json(lancamentos);
+    const lancamentos = await usuarioCtrl.recuperarLancamentosGastos(idUsuario);
+    if(!lancamentos.length){
+        res.status(204).json({ mensagem: 'Nenhum lançamento encontrado' });
+    }else{
+        res.json(lancamentos);
+    }
 });
 
 
