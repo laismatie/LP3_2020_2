@@ -1,7 +1,3 @@
-# Awesome Project Build with TypeORM
+# julius-app-api
 
-Steps to run this project:
-
-1. Run `npm i` command
-2. Setup database settings inside `ormconfig.json` file
-3. Run `npm start` command
+API mais reduzida para o Julius App (versão Vue). Nesta implementação, o banco de dados fica hospedado no MongoDB.
